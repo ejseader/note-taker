@@ -1,5 +1,6 @@
 const generateID = require('generate-unique-id');
 const fs = require('fs');
+const router = require('express').Router();
 
 const editNote = (newNotesArray) => {
   fs.writeFile('./db/db.json', JSON.stringify(newNotesArray), (err) => {
@@ -7,9 +8,8 @@ const editNote = (newNotesArray) => {
   });
 }
 
-module.exports = (app) => {
   // GET request
-  app.get('/api/notes/', (req, res) => {
+  router.get('/api/notes/', (req, res) => {
     fs.readFile('./db/db.json', 'utf-8', (err, data) => {
       if (err) throw err;
 
@@ -18,7 +18,7 @@ module.exports = (app) => {
   });
 
   // POST request
-  app.post('/api/notes/', (req, res) => {
+  router.post('/api/notes/', (req, res) => {
     const newNote = req.body;
     fs.readFile('./db/db.json', 'utf-8', (err, data) => {
       if (err) throw err;
@@ -39,7 +39,7 @@ module.exports = (app) => {
   });
 
   // PUT request
-  app.put("/api/notes/:id", (req, res) => {
+  router.put("/api/notes/:id", (req, res) => {
     const editID = req.params.id;
 
     fs.readFile("./db/db.json", "utf-8", (err, data) => {
@@ -70,7 +70,7 @@ module.exports = (app) => {
   });
 
   // DELETE request
-  app.delete("/api/notes/:id", (req, res) => {
+  router.delete("/api/notes/:id", (req, res) => {
     const deleteId = req.params.id;
 
     fs.readFile("./db/db.json", "utf-8", (err, data) => {
@@ -87,4 +87,5 @@ module.exports = (app) => {
       res.send(notesArray);
     });
   });
-}
+
+module.exports = router;
