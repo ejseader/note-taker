@@ -24,7 +24,7 @@ const editNote = (newNotesArray) => {
       if (err) throw err;
 
       const notesArray = JSON.parse(data);
-      newNote.id = generateID({ length: 5});
+      newNote.id = generateID({ length: 10});
       notesArray.push(newNote);
 
       editNote(notesArray);
