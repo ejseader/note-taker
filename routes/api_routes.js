@@ -3,7 +3,7 @@ const fs = require('fs');
 const router = require('express').Router();
 
 const editNote = (newNotesArray) => {
-  fs.writeFile('./db/db.json', JSON.stringify(newNotesArray), (err) => {
+  fs.writeFile('./db/db.json', JSON.stringify(newNotesArray, null, '\t'), (err) => {
     if (err) throw err;
   });
 }
